@@ -7,7 +7,8 @@
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "noEmit": true
+    "noEmit": true,
+    "types": ["vite-plugin-pwa/client"]
   },
   "include": ["vite.config.ts", "vite.pwa.config.ts", "vite.config.types.ts"]
 }

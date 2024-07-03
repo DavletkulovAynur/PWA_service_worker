@@ -10,17 +10,16 @@ import { IViteConfigParams } from "./vite.config.types";
 export const vitePwaConfig = ({ isDev, outDir }: IViteConfigParams) =>
   VitePWA({
     registerType: "autoUpdate",
-    injectRegister: "auto",
-    strategies: 'injectManifest',
-    injectManifest: {
-      globPatterns: ['**/*'],
-    },
-    filename: 'firebase-messaging-sw.js',
+    strategies: "injectManifest",
     minify: true,
     outDir,
     devOptions: {
       enabled: isDev,
+      type: "module",
     },
+    // injectManifest: {
+    //   swSrc: 'custom-service-worker.js',
+    // },
     workbox: {
       globPatterns: ["**/*.{js,css,html,png,svg}"],
       cleanupOutdatedCaches: true,
