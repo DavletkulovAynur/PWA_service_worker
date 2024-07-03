@@ -44,6 +44,26 @@ firebase.initializeApp({
 // eslint-disable-next-line no-undef
 const messaging = firebase.messaging();
 console.log("messaging", messaging);
+
+messaging
+  .getToken({
+    vapidKey:
+      "BDcrCFxXTCEPfdxVhSDekNE0ilhDuPGrPXcR2XnvtV2HUxR4OZYb0TYqkEAjJIilVzf3164ec6N9YZMQtBJlCh8",
+  })
+  .then((currentToken) => {
+    if (currentToken) {
+      console.log("Current token:", currentToken);
+      // Send the token to your server and update the UI if necessary
+    } else {
+      console.log(
+        "No registration token available. Request permission to generate one."
+      );
+    }
+  })
+  .catch((err) => {
+    console.log("An error occurred while retrieving token. ", err);
+  });
+
 messaging.onBackgroundMessage((payload) => {
   console.log(
     "[firebase-messaging-sw.js] Received background message ",
