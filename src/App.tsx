@@ -7,6 +7,38 @@ import Main from "./modules/Dashboard/Main";
 function App() {
   const queryClient = new QueryClient();
   const isOnline = navigator.onLine;
+
+  Notification.requestPermission().then((permission) => {
+    if (permission === "granted") {
+      // Разрешение на уведомления получено
+      console.log("Push уведомления разрешены");
+    } else if (permission === "denied") {
+      // Разрешение на уведомления отклонено
+      console.log("Push уведомления отклонены");
+    } else {
+      // Пользователь отменил запрос на разрешение уведомлений
+      console.log("Запрос на разрешение уведомлений отменен");
+    }
+  });
+
+  // Получение доступа к сервис-воркеру
+  navigator.serviceWorker.ready.then((registration) => {
+    // Подписка на push-уведомления
+    registration.pushManager
+      .subscribe({
+        userVisibleOnly: true, // Видимые пользователю уведомления
+        applicationServerKey:
+          "BDcrCFxXTCEPfdxVhSDekNE0ilhDuPGrPXcR2XnvtV2HUxR4OZYb0TYqkEAjJIilVzf3164ec6N9YZMQtBJlCh8",
+      })
+      .then((subscription) => {
+        // Здесь можно отправить объект подписки на сервер и использовать для отправки уведомлений
+        console.log("Успешно подписаны на push уведомления:", subscription);
+      })
+      .catch((error) => {
+        console.error("Ошибка подписки на push уведомления:", error);
+      });
+  });
+
   return (
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary fallback={<div>Something went wrong</div>}>
