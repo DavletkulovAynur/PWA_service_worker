@@ -10,8 +10,29 @@ self.addEventListener("message", (event) => {
   }
 });
 
-self.addEventListener("fetch", (event) => {
-  console.log("message fetch", event);
+// self.addEventListener("fetch", (event) => {
+//   console.log("message fetch", event);
+// });
+
+self.addEventListener("fetch", function () {
+  // console.log('[Service Worker] Push Received.');
+  // const payload = event.data.json();  // Assuming the payload is sent as JSON
+  // const notificationTitle = payload.notification.title;
+  // const notificationOptions = {
+  //     body: payload.notification.body,
+  //     icon: payload.notification.icon,
+  //     image: payload.notification.image,
+  //     badge: payload.notification.badge,
+  // };
+  // event.waitUntil(
+  //     self.registration.showNotification(, notificationOptions)
+  // );
+  console.log("timeout");
+  setTimeout(() => {
+    self.registration.showNotification("test", {
+      body: "test",
+    });
+  }, 3000);
 });
 
 //TODO: FIREBASE
