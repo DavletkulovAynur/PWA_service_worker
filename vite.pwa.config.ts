@@ -10,21 +10,24 @@ import { IViteConfigParams } from "./vite.config.types";
 export const vitePwaConfig = ({ isDev, outDir }: IViteConfigParams) =>
   VitePWA({
     registerType: "autoUpdate",
-    strategies: "injectManifest",
     minify: true,
     outDir,
-    devOptions: {
-      enabled: isDev,
-      type: "module",
-    },
-    // injectManifest: {
-    //   swSrc: 'custom-service-worker.js',
-    // },
+    // регистрируем свой service worker
+    strategies: "injectManifest",
+    srcDir: "src",
+    filename: "sw.ts",
+    // Workbox
     workbox: {
       globPatterns: ["**/*.{js,css,html,png,svg}"],
       cleanupOutdatedCaches: true,
       skipWaiting: true,
     },
+    // Настройка Service Workers для режима разработки 
+    devOptions: {
+      enabled: isDev,
+      type: "module",
+    },
+    // Manifest
     manifest: {
       name: "Test PWA",
       short_name: "pwa",
